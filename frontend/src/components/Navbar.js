@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import "../index.css"; // Optional if you separate styles into Navbar.css later
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -9,28 +10,19 @@ const Navbar = () => {
   };
 
   return (
-    <nav style={styles.navbar}>
-      <button onClick={() => navigate("/products")} style={styles.button}>🛒 Products</button>
-      <button onClick={() => navigate("/products/create")} style={styles.button}>➕ Create Product</button>
-      <button onClick={handleLogout} style={styles.button}>🚪 Logout</button>
+    <nav className="navbar">
+      <div className="navbar-left" onClick={() => navigate("/products")}>
+        <h2 className="navbar-logo">🛍️ ShopEasy</h2>
+      </div>
+      <div className="navbar-right">
+        <button onClick={() => navigate("/products")}>Products</button>
+        <button onClick={() => navigate("/products/create")}>Create</button>
+        <button onClick={() => navigate("/cart")}>🛒 Cart</button>
+        <button onClick={() => navigate("/profile")}>Profile</button>
+        <button onClick={handleLogout} className="logout-button">Logout</button>
+      </div>
     </nav>
   );
-};
-
-const styles = {
-  navbar: {
-    display: "flex",
-    gap: "1rem",
-    padding: "1rem",
-    backgroundColor: "#f0f0f0",
-    borderBottom: "1px solid #ccc",
-    justifyContent: "center",
-  },
-  button: {
-    padding: "0.5rem 1rem",
-    fontSize: "1rem",
-    cursor: "pointer",
-  },
 };
 
 export default Navbar;

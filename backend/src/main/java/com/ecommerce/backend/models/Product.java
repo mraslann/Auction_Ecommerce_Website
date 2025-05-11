@@ -3,6 +3,7 @@ package com.ecommerce.backend.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "products")
@@ -21,12 +22,12 @@ public class Product {
 
     private String imageUrl;
 
-    // Optional: later if you want to link to a user
-    // @ManyToOne
-    // @JoinColumn(name = "user_id")
-    // private User user;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties({"products", "password"})
+    private User owner;
 
-    // Getters & Setters
+    //Getters & Setters
 
     public Long getId() {
         return id;
@@ -67,4 +68,17 @@ public class Product {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Long getOwnerId() {
+        return owner != null ? owner.getId() : null;
+    }
+
 }

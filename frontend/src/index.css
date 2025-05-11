@@ -99,3 +99,45 @@ nav button:hover {
   font-size: 18px;
   color: gray;
 }
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  border-bottom: 2px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 0 0 12px 12px;
+  margin-bottom: 20px;
+}
+
+.navbar-left {
+  cursor: pointer;
+}
+
+.navbar-logo {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.navbar-right {
+  display: flex;
+  gap: 1rem;
+}
+
+.navbar-right button {
+  background-color: #007bff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.navbar-right button:hover {
+  background-color: #eee;
+}
+

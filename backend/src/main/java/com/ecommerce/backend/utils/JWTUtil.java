@@ -18,4 +18,13 @@ public class JWTUtil {
                 .signWith(SECRET_KEY)
                 .compact();
     }
+    public static String getEmailFromToken(String token) {
+        Claims claims = Jwts.parserBuilder()
+            .setSigningKey(SECRET_KEY)
+            .build()
+            .parseClaimsJws(token)
+            .getBody();
+    
+        return claims.getSubject();
+    }    
 }

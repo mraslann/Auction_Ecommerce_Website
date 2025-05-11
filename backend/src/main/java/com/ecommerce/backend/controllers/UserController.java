@@ -11,6 +11,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/users")
@@ -55,6 +57,25 @@ public class UserController {
 
         return ResponseEntity.ok(token);
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<User> getCurrentUser(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        String token = authHeader.substring(7);
+        String email = JWTUtil.getEmailFromToken(token); // you'll need to implement this
+
+        User user = userRepository.findByEmail(email).orElse(null);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(user);
+    }
+
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
